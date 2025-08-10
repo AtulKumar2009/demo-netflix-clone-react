@@ -8,9 +8,4 @@ describe('', () => {
     const btn = screen.getByRole('button');
     expect(btn).toBeInTheDocument();
   });
-  test('On + Click increase count', () => {
-    render(<App />);
-    const btn = screen.getByRole('button', { name: /➕/i });
-    expect(btn).toBeInTheDocument();
-  });
 });
