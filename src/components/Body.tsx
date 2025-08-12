@@ -1,5 +1,6 @@
 import Login from './Login';
 import Browse from './Browse';
+import Error404 from './Error404';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,11 +14,15 @@ const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: '/',
-      element: user.isAuthenticated ? <Navigate to="/browser" /> : <Login />,
+      element: user.isAuthenticated ? <Navigate to="/browse" /> : <Login />,
     },
     {
-      path: '/browser',
+      path: '/browse',
       element: user.isAuthenticated ? <Browse /> : <Navigate to="/" />,
+    },
+    {
+      path: '*',
+      element: <Error404 />,
     },
   ]);
 

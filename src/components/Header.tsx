@@ -27,7 +27,7 @@ const Header = () => {
             isAuthenticated: true,
           })
         );
-        navigate('/browser');
+        navigate('/browse');
       } else {
         dispatch(removeUser());
         navigate('/');
