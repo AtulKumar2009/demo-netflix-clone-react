@@ -10,6 +10,7 @@ import {
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_IMG } from '../utils/constants';
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -90,16 +91,12 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <div className="fixed inset-0 -z-10">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/258d0f77-2241-4282-b613-8354a7675d1a/web/IN-en-20250721-TRIFECTA-perspective_cadc8408-df6e-4313-a05d-daa9dcac139f_large.jpg"
-          alt=""
-          className="w-full h-full object-cover"
-        />
+      <div className="fixed h-screen inset-0 -z-10">
+        <img src={BG_IMG} alt="" className="w-full h-full object-cover" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-3/12 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-12 bg-black text-white rounded-xl opacity-80"
+        className="w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-12 bg-black text-white rounded-xl opacity-80"
       >
         <h1 className="text-3xl font-bold py-4">
           {isSignInForm ? 'Sign In' : 'Sign Up'}

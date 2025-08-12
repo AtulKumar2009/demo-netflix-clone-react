@@ -37,16 +37,16 @@ const Header = () => {
   }, []);
   const user = useSelector((store: RootState) => store.user);
   return (
-    <div className="absolute justify-between flex px-8 py-2 w-screen bg-gradient-to-b from-black z-10">
+    <div className="absolute justify-between flex px-2 md:px-8 pr-8 py-2 w-screen bg-gradient-to-b from-black z-10">
       <img className="w-44" src={LOGO} alt="Logo" />
       {user.isAuthenticated && (
         <div className="flex p-2">
           <img className="w-12 h-12" src={USER_ICON} alt="userIcon" />
           <button
-            className="font-bold text-white cursor-pointer"
+            className="font-bold text-white cursor-pointer underline"
             onClick={handleSignOut}
           >
-            (Sign Out)
+            Sign Out
           </button>
         </div>
       )}

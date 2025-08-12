@@ -1,7 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { API_OPTIONS, POPLUR_MOVIES_API } from '../utils/constants';
 import { addPoplularMovies, type Movie } from '../utils/moviesSlice';
 import { useEffect } from 'react';
+import type { RootState } from '../utils/appStore';
 
 const mapMovies = (json: Movie[]) => {
   return json.map((movie) => ({
@@ -15,12 +16,15 @@ const mapMovies = (json: Movie[]) => {
 
 export const usePopularMovies = () => {
   const dispatch = useDispatch();
+  const popularMovies = useSelector(
+    (store: RootState) => store.movies.nowPlayingMovies
+  );
   const getPopularMovies = async () => {
     const data = await fetch(POPLUR_MOVIES_API, API_OPTIONS);
     const json = await data.json();
     dispatch(addPoplularMovies(mapMovies(json.results)));
   };
   useEffect(() => {
-    getPopularMovies();
+    if (!popularMovies) getPopularMovies();
   }, []);
 };
