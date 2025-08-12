@@ -5,15 +5,10 @@ import {
   RouterProvider,
   Navigate,
 } from 'react-router-dom';
-import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../utils/firebase';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUser, removeUser } from '../utils/userSlice';
+import { useSelector } from 'react-redux';
 import type { RootState } from '../utils/appStore';
 
 const Body = () => {
-  const dispatch = useDispatch();
   const user = useSelector((store: RootState) => store.user);
   const appRouter = createBrowserRouter([
     {
@@ -25,23 +20,7 @@ const Body = () => {
       element: user.isAuthenticated ? <Browse /> : <Navigate to="/" />,
     },
   ]);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName } = user;
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            isAuthenticated: true,
-          })
-        );
-      } else {
-        dispatch(removeUser());
-      }
-    });
-  }, []);
+
   return (
     <div>
       <RouterProvider router={appRouter} />

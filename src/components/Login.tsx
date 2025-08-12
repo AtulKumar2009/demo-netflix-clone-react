@@ -7,14 +7,12 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined);
   const name = useRef<HTMLInputElement>(null);
@@ -59,7 +57,6 @@ const Login = () => {
                     isAuthenticated: true,
                   })
                 );
-                navigate('/browser');
               } else {
                 setErrorMsg('User not found after sign up.');
               }
@@ -79,18 +76,12 @@ const Login = () => {
         auth,
         email.current!.value,
         password.current!.value
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-          navigate('/browser');
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMsg = error.message;
-          console.log(errorCode, errorMsg);
-          setErrorMsg(errorMsg);
-        });
+      ).catch((error) => {
+        const errorCode = error.code;
+        const errorMsg = error.message;
+        console.log(errorCode, errorMsg);
+        setErrorMsg(errorMsg);
+      });
     }
   };
   const toggleSignInForm = () => {
